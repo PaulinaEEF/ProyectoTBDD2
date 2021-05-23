@@ -5,6 +5,7 @@
  */
 package jedisprueba;
 
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +14,9 @@ import java.util.Set;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -73,7 +77,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jd_estudiante = new javax.swing.JDialog();
         jLabel6 = new javax.swing.JLabel();
         jd_admin = new javax.swing.JDialog();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tb_admin = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         tf_idClaseC = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -98,10 +102,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jb_crearPregunta = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         cb_elegirClaseE = new javax.swing.JComboBox<>();
-        jSpinner2 = new javax.swing.JSpinner();
+        js_cantPreguntas = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tf_idExamen = new javax.swing.JTextField();
+        jb_crearExamen = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
         jb_login = new javax.swing.JButton();
@@ -170,9 +175,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
         jd_admin.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tb_admin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
+                tb_adminMouseClicked(evt);
             }
         });
 
@@ -202,7 +207,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jPanel2.add(jb_crearClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, 30));
 
-        jTabbedPane1.addTab("Crear Clase", jPanel2);
+        tb_admin.addTab("Crear Clase", jPanel2);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -251,7 +256,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jPanel3.add(jb_crearPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 130, 30));
 
-        jTabbedPane1.addTab("Crear Pregunta", jPanel3);
+        tb_admin.addTab("Crear Pregunta", jPanel3);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -262,20 +267,30 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             }
         });
         jPanel4.add(cb_elegirClaseE, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 180, 40));
-        jPanel4.add(jSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, -1, -1));
 
-        jLabel12.setText("jLabel12");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
+        js_cantPreguntas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel4.add(js_cantPreguntas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 70, 30));
 
-        jLabel17.setText("jLabel17");
+        jLabel12.setText("Cantidad de Preguntas");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, 30));
+
+        jLabel17.setText("Id Examen");
         jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
 
-        jTextField1.setText("jTextField1");
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 130, 30));
+        tf_idExamen.setEditable(false);
+        jPanel4.add(tf_idExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 130, 30));
 
-        jTabbedPane1.addTab("Crear Examen", jPanel4);
+        jb_crearExamen.setText("Crear Examen");
+        jb_crearExamen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_crearExamenMouseClicked(evt);
+            }
+        });
+        jPanel4.add(jb_crearExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 110, 30));
 
-        jd_admin.getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
+        tb_admin.addTab("Crear Examen", jPanel4);
+
+        jd_admin.getContentPane().add(tb_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -303,11 +318,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
         );
 
         pack();
@@ -523,7 +538,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 cb_clasesC.addItem("ID: " + cuenta + " : " + examen);
                 cb_elegirClase.addItem("ID: " + cuenta + " : " + examen);
                 cb_elegirClaseE.addItem("ID: " + cuenta + " : " + examen);
-                
+
                 JOptionPane.showMessageDialog(null, "Clase creada con exito");
             }
             tf_nombreClaseC.setText("");
@@ -534,7 +549,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private void jb_crearPreguntaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_crearPreguntaMouseClicked
         // TODO add your handling code here:
 
-        if (tf_titulo.getText().isEmpty() || tf_descripcion.getText().isEmpty() || cb_elegirClase.getSelectedIndex() == 0) {
+        if (tf_titulo.getText().isEmpty() || tf_descripcion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene todos los campos");
         } else {
             Jedis jedis = new Jedis("localhost", 6379);
@@ -599,7 +614,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jl_cantPreguntas.setText(cuenta + "");
     }//GEN-LAST:event_cb_elegirClaseItemStateChanged
     int contClases = 2001;
-    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+    private void tb_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_adminMouseClicked
         // TODO add your handling code here:
         Jedis jedis = new Jedis("localhost", 6379);
 
@@ -607,6 +622,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         java.util.Iterator<String> it = names.iterator();
         String s = "";
         contClases = 2001;
+        int contExamen = 1001;
 
         while (it.hasNext()) {
             s = it.next();
@@ -614,14 +630,78 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             if (Integer.parseInt(s) >= 2001) {
                 contClases++;
 
+            } else if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
+                contExamen++;
+
             }
         }
+        cb_elegirClaseE.setSelectedIndex(0);
         tf_idPregunta.setText(contClases + "");
-    }//GEN-LAST:event_jTabbedPane1MouseClicked
+        tf_idExamen.setText(contExamen + "");
+    }//GEN-LAST:event_tb_adminMouseClicked
 
     private void cb_elegirClaseEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_elegirClaseEItemStateChanged
         // TODO add your handling code here:
+        //tf_idExamen
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                if (tb_admin.getSelectedIndex() == 2) {
+
+                    Jedis jedis = new Jedis("localhost", 6379);
+
+                    Set<String> names = jedis.keys("*");
+                    java.util.Iterator<String> it = names.iterator();
+                    String s = "";
+                    int cont = 0;
+
+                    while (it.hasNext()) {
+                        s = it.next();
+
+                        HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+                        if (Integer.parseInt(s) >= 2001) {
+                            if (val.get("IdClase").charAt(0) == ((String) cb_elegirClaseE.getSelectedItem()).charAt(4)) {
+                                cont++;
+
+                            }
+
+                        } else if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
+                            if (val.get("IdClase").charAt(0) == ((String) cb_elegirClaseE.getSelectedItem()).charAt(4)) {
+                                JOptionPane.showMessageDialog(null, "Esa clase ya tiene examen");
+                                cont = -1;
+                                break;
+
+                            }
+                        }
+                    }
+                    if (cont == 0) {
+                        JOptionPane.showMessageDialog(null, "Esa clase no tiene preguntas creadas");
+                        jb_crearExamen.setEnabled(false);
+                    } else if (cont > 0) {
+                        SpinnerNumberModel model = (SpinnerNumberModel) js_cantPreguntas.getModel();
+                        model.setMaximum(cont);
+                        js_cantPreguntas = new JSpinner(model);
+                        jb_crearExamen.setEnabled(true);
+
+                    }
+                }
+            }
+        });
+
+
     }//GEN-LAST:event_cb_elegirClaseEItemStateChanged
+
+    private void jb_crearExamenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_crearExamenMouseClicked
+        // TODO add your handling code here:
+        Jedis jedis = new Jedis("localhost", 6379);
+
+        HashMap<String, String> examen = new HashMap<>();
+        examen.put("IdExamen", tf_idExamen.getText());
+        examen.put("IdClase", ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "");
+        examen.put("cantPreguntas", (int) js_cantPreguntas.getValue() + "");
+        jedis.hmset(tf_idExamen.getText() + "", examen);
+        JOptionPane.showMessageDialog(null, "Examen creado con exito");
+    }//GEN-LAST:event_jb_crearExamenMouseClicked
 
     /**
      * @param args the command line arguments
@@ -734,10 +814,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jb_crearClase;
+    private javax.swing.JButton jb_crearExamen;
     private javax.swing.JButton jb_crearPregunta;
     private javax.swing.JButton jb_login;
     private javax.swing.JButton jb_loginL;
@@ -750,10 +828,13 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_registrar;
     private javax.swing.JLabel jl_cantPreguntas;
+    private javax.swing.JSpinner js_cantPreguntas;
     private javax.swing.JPasswordField pf_contraL;
     private javax.swing.JPasswordField pf_passR;
+    private javax.swing.JTabbedPane tb_admin;
     private javax.swing.JTextField tf_descripcion;
     private javax.swing.JTextField tf_idClaseC;
+    private javax.swing.JTextField tf_idExamen;
     private javax.swing.JTextField tf_idPregunta;
     private javax.swing.JTextField tf_loginR;
     private javax.swing.JTextField tf_nameR;
