@@ -39,10 +39,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     public ProyectoTBDD2() {
         initComponents();
         jb_realizarExamen.setEnabled(false);
-        
+        tf_usuarioL.setText("Admin");
+        pf_contraL.setText("admin1234");
         Jedis jedis = new Jedis("localhost", 6379);
         HashMap<String, String> examen = new HashMap<>();
-        examen.put("Nombre","Administrador");
+        examen.put("Nombre", "Administrador");
         examen.put("login", "Admin");
         examen.put("Contrasena", doHashing("admin1234"));
 
@@ -89,6 +90,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jb_realizarExamen = new javax.swing.JButton();
         jb_salirE = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
         jd_admin = new javax.swing.JDialog();
         tb_admin = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -99,6 +101,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         cb_clasesC = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jb_crearClase = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cb_elegirClase = new javax.swing.JComboBox<>();
@@ -113,6 +116,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         cb_respuesta = new javax.swing.JComboBox<>();
         jb_crearPregunta = new javax.swing.JButton();
+        jLabel29 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         cb_elegirClaseE = new javax.swing.JComboBox<>();
         js_cantPreguntas = new javax.swing.JSpinner();
@@ -120,6 +124,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         tf_idExamen = new javax.swing.JTextField();
         jb_crearExamen = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         cb_clases = new javax.swing.JComboBox<>();
@@ -128,6 +133,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jl_examen = new javax.swing.JList<>();
+        jLabel31 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jd_examen = new javax.swing.JDialog();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -135,6 +141,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         cb_elegir = new javax.swing.JComboBox<>();
         jb_siguiente = new javax.swing.JButton();
         jb_finalizar = new javax.swing.JButton();
+        jLabel27 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jb_login = new javax.swing.JButton();
         jb_registrar = new javax.swing.JButton();
@@ -159,14 +166,16 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel3.setText("Contraseña");
         jd_registrar.getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
 
+        jb_registrarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/create.png"))); // NOI18N
         jb_registrarR.setText("Registrar");
         jb_registrarR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_registrarRMouseClicked(evt);
             }
         });
-        jd_registrar.getContentPane().add(jb_registrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
+        jd_registrar.getContentPane().add(jb_registrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 160, -1));
 
+        jb_regresarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/return (6).png"))); // NOI18N
         jb_regresarR.setText("Regresar");
         jb_regresarR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -181,34 +190,42 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
         tf_e.setEditable(false);
         jd_registrar.getContentPane().add(tf_e, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 120, 30));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/1920x1080-lemon-yellow-solid-color-background.jpg"))); // NOI18N
         jd_registrar.getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 470));
 
         jd_login.setUndecorated(true);
         jd_login.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jd_login.getContentPane().add(tf_usuarioL, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 140, 30));
-        jd_login.getContentPane().add(pf_contraL, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 140, 30));
+        jd_login.getContentPane().add(tf_usuarioL, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 140, 30));
+        jd_login.getContentPane().add(pf_contraL, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 140, 30));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Nombre de Usuario");
-        jd_login.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
+        jd_login.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Contraseña");
-        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
+        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 20));
 
+        jb_loginL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/create.png"))); // NOI18N
         jb_loginL.setText("Ingresar");
         jb_loginL.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_loginLMouseClicked(evt);
             }
         });
-        jd_login.getContentPane().add(jb_loginL, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, -1, -1));
+        jd_login.getContentPane().add(jb_loginL, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 130, 50));
 
+        jb_regresarL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/flecha-izquierda.png"))); // NOI18N
         jb_regresarL.setText("Regresar");
         jb_regresarL.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_regresarLMouseClicked(evt);
             }
         });
-        jd_login.getContentPane().add(jb_regresarL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jd_login.getContentPane().add(jb_regresarL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 130, -1));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/a.jpg"))); // NOI18N
         jd_login.getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 470));
 
         jd_estudiante.setUndecorated(true);
@@ -238,6 +255,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel6.setText("Seleccione uno");
         jd_estudiante.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
 
+        jb_realizarExamen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/lapiz.png"))); // NOI18N
         jb_realizarExamen.setText("Realizar Examen");
         jb_realizarExamen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -246,13 +264,17 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jd_estudiante.getContentPane().add(jb_realizarExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, -1, -1));
 
+        jb_salirE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/return (6).png"))); // NOI18N
         jb_salirE.setText("Salir");
         jb_salirE.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_salirEMouseClicked(evt);
             }
         });
-        jd_estudiante.getContentPane().add(jb_salirE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 70, 30));
+        jd_estudiante.getContentPane().add(jb_salirE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 140, 40));
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/2560x1600-neon-carrot-solid-color-background.jpg"))); // NOI18N
+        jd_estudiante.getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 370));
 
         jd_admin.setUndecorated(true);
         jd_admin.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -288,6 +310,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jb_crearClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, 30));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/dc99dfb203f71314fb75a8fe2beca7fe.jpg"))); // NOI18N
+        jPanel2.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 380));
 
         tb_admin.addTab("Crear Clase", jPanel2);
 
@@ -338,6 +363,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jPanel3.add(jb_crearPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 130, 30));
 
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/1920x1080-fresh-air-solid-color-background.jpg"))); // NOI18N
+        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 380));
+
         tb_admin.addTab("Crear Pregunta", jPanel3);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -370,6 +398,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jPanel4.add(jb_crearExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 110, 30));
 
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/1920x1080-lemon-yellow-solid-color-background.jpg"))); // NOI18N
+        jPanel4.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 380));
+
         tb_admin.addTab("Crear Examen", jPanel4);
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -396,6 +427,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jl_examen);
 
         jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 240, 140));
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/2560x1600-neon-carrot-solid-color-background.jpg"))); // NOI18N
+        jPanel5.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 380));
 
         tb_admin.addTab("Mostrar todo", jPanel5);
 
@@ -441,6 +475,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jd_examen.getContentPane().add(jb_finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, 140, 40));
 
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/3840x2160-cream-solid-color-background.jpg"))); // NOI18N
+        jd_examen.getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 430));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
@@ -469,6 +506,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 90, 30));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/1920x1080-fresh-air-solid-color-background.jpg"))); // NOI18N
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -593,6 +632,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
     private void jb_loginLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_loginLMouseClicked
         // TODO add your handling code here:
+        tb_admin.setSelectedIndex(0);
         cb_clasesC.setModel(new DefaultComboBoxModel());
         cb_elegirClase.setModel(new DefaultComboBoxModel());
         cb_elegirClaseE.setModel(new DefaultComboBoxModel());
@@ -620,15 +660,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
                     //if (todo.get(igual).equals(tf_loginR.getText())) {
                     HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
-                    System.out.println(val.get("login").equals(tf_usuarioL.getText()));
-                    System.out.println(val.get("Contrasena").equals(doHashing(pf_contraL.getText())));
-                    System.out.println(tf_usuarioL.getText().equals("Admin"));
                     if ((val.get("login").equals(tf_usuarioL.getText()) && val.get("Contrasena").equals(doHashing(pf_contraL.getText()))) && tf_usuarioL.getText().equals("Admin")) {
                         validarAdmin = true;
                     }
                     //if (val.get("login").equals(tf_usuarioL.getText()) && val.get("Contrasena").equals(pf_contraL.getText())) {
                     if (val.get("login").equals(tf_usuarioL.getText()) && val.get("Contrasena").equals(doHashing(pf_contraL.getText()))) {
-
                         IdEstudiante = Integer.parseInt(s);
                         validar = true;
 
@@ -643,14 +679,14 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
             }
 
-            if (validar == true && !validarAdmin==true) {
+            if (validar == true && !validarAdmin == true) {
 
                 jd_login.setVisible(false);
                 llenarLists();
                 jd_estudiante.pack();
                 jd_estudiante.setLocationRelativeTo(null);
                 jd_estudiante.setVisible(true);
-            } else if (validarAdmin == true && validar==true) {
+            } else if (validarAdmin == true && validar == true) {
 
                 tf_idClaseC.setText(contClases + "");
                 jd_login.setVisible(false);
@@ -800,35 +836,36 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     int contClases = 2001;
     private void tb_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_adminMouseClicked
         // TODO add your handling code here:
-        Jedis jedis = new Jedis("localhost", 6379);
-
-        Set<String> names = jedis.keys("*");
-        java.util.Iterator<String> it = names.iterator();
-        String s = "";
-        contClases = 2001;
-        int contExamen = 1001;
-
-        while (it.hasNext()) {
-            s = it.next();
-
-            if (Integer.parseInt(s) >= 2001) {
-                contClases++;
-
-            } else if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
-                contExamen++;
-
-            }
-        }
-        cb_elegirClaseE.addItem("hola");
-//        cb_clases.addItem("hola");
-        cb_elegirClaseE.setSelectedIndex(1);
-//        cb_clases.setSelectedIndex(1);
-        llenarCB();
-        tf_idPregunta.setText(contClases + "");
-        tf_idExamen.setText(contExamen + "");
 
         if (tb_admin.getSelectedIndex() == 4) {
             jd_admin.setVisible(false);
+        } else if (cb_elegirClaseE.getItemCount() != 0) {
+            Jedis jedis = new Jedis("localhost", 6379);
+
+            Set<String> names = jedis.keys("*");
+            java.util.Iterator<String> it = names.iterator();
+            String s = "";
+            contClases = 2001;
+            int contExamen = 1001;
+
+            while (it.hasNext()) {
+                s = it.next();
+
+                if (Integer.parseInt(s) >= 2001) {
+                    contClases++;
+
+                } else if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
+                    contExamen++;
+
+                }
+            }
+            cb_elegirClaseE.addItem("hola");
+//        cb_clases.addItem("hola");
+            cb_elegirClaseE.setSelectedIndex(1);
+//        cb_clases.setSelectedIndex(1);
+            llenarCB();
+            tf_idPregunta.setText(contClases + "");
+            tf_idExamen.setText(contExamen + "");
         }
     }//GEN-LAST:event_tb_adminMouseClicked
 
@@ -906,58 +943,63 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
     private void jb_realizarExamenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_realizarExamenMouseClicked
         // TODO add your handling code here:
-        jl_preguntas.setModel(new DefaultListModel<>());
+        if (jl_noHechos.getSelectedIndex() != -1) {
 
-        jb_finalizar.setEnabled(true);
-        jb_siguiente.setEnabled(true);
-        int cont = 1;
-        int index = jl_noHechos.getSelectedIndex();
-        DefaultListModel<String> modelo = (DefaultListModel<String>) jl_noHechos.getModel();
+            jl_preguntas.setModel(new DefaultListModel<>());
 
-        preguntasH = new ArrayList();
-        respuestas = new ArrayList();
-        respondidas = new ArrayList();
+            jb_finalizar.setEnabled(true);
+            jb_siguiente.setEnabled(true);
+            int cont = 1;
+            int index = jl_noHechos.getSelectedIndex();
+            DefaultListModel<String> modelo = (DefaultListModel<String>) jl_noHechos.getModel();
 
-        String cadenaClase = modelo.getElementAt(index);
-        String IdExamen = cadenaClase.substring(11, 15);
-        IdeExamen = IdExamen;
-        String IdClase = cadenaClase.charAt(27) + "";
+            preguntasH = new ArrayList();
+            respuestas = new ArrayList();
+            respondidas = new ArrayList();
 
-        Jedis jedis = new Jedis("localhost", 6379);
+            String cadenaClase = modelo.getElementAt(index);
+            String IdExamen = cadenaClase.substring(11, 15);
+            IdeExamen = IdExamen;
+            String IdClase = cadenaClase.charAt(27) + "";
 
-        int cantP = Integer.parseInt(jedis.hget(IdExamen, "cantPreguntas"));
-        Set<String> names = jedis.keys("*");
-        java.util.Iterator<String> it = names.iterator();
-        String s = "";
+            Jedis jedis = new Jedis("localhost", 6379);
 
-        while (it.hasNext() && cont <= cantP) {
-            s = it.next();
+            int cantP = Integer.parseInt(jedis.hget(IdExamen, "cantPreguntas"));
+            Set<String> names = jedis.keys("*");
+            java.util.Iterator<String> it = names.iterator();
+            String s = "";
 
-            HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
-            if (Integer.parseInt(s) >= 2001) {
+            while (it.hasNext() && cont <= cantP) {
+                s = it.next();
 
-                if (val.get("IdClase").equals(IdClase)) {
-                    preguntasH.add(val.get("titulo") + " - " + val.get("descripcion"));
-                    respuestas.add(val.get("respuesta"));
-                    cont++;
+                HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+                if (Integer.parseInt(s) >= 2001) {
+
+                    if (val.get("IdClase").equals(IdClase)) {
+                        preguntasH.add(val.get("titulo") + " - " + val.get("descripcion"));
+                        respuestas.add(val.get("respuesta"));
+                        cont++;
+                    }
                 }
+
             }
 
+            DefaultListModel<String> model = (DefaultListModel<String>) jl_preguntas.getModel();
+            model.addElement(preguntasH.get(0));
+            jl_preguntas.setModel(model);
+
+            if (preguntasH.size() > 1) {
+                jb_finalizar.setEnabled(false);
+            } else if (preguntasH.size() == 1) {
+                jb_siguiente.setEnabled(false);
+            }
+
+            jd_examen.pack();
+            jd_examen.setLocationRelativeTo(null);
+            jd_examen.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "No ha seleccionado examenes");
         }
-
-        DefaultListModel<String> model = (DefaultListModel<String>) jl_preguntas.getModel();
-        model.addElement(preguntasH.get(0));
-        jl_preguntas.setModel(model);
-
-        if (preguntasH.size() > 1) {
-            jb_finalizar.setEnabled(false);
-        } else if (preguntasH.size() == 1) {
-            jb_siguiente.setEnabled(false);
-        }
-
-        jd_examen.pack();
-        jd_examen.setLocationRelativeTo(null);
-        jd_examen.setVisible(true);
     }//GEN-LAST:event_jb_realizarExamenMouseClicked
 
     private void jb_siguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_siguienteMouseClicked
@@ -1250,7 +1292,13 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
