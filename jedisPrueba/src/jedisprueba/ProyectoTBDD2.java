@@ -39,8 +39,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     public ProyectoTBDD2() {
         initComponents();
         jb_realizarExamen.setEnabled(false);
-        tf_usuarioL.setText("Admin");
-        pf_contraL.setText("admin1234");
+        //tf_usuarioL.setText("Admin");
+        //pf_contraL.setText("admin1234");
         Jedis jedis = new Jedis("localhost", 6379);
         HashMap<String, String> examen = new HashMap<>();
         examen.put("Nombre", "Administrador");
