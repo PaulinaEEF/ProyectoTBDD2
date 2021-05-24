@@ -6,6 +6,8 @@
 package jedisprueba;
 
 import java.awt.event.ItemEvent;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,8 +15,11 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.ListModel;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import redis.clients.jedis.Jedis;
@@ -33,6 +38,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
     public ProyectoTBDD2() {
         initComponents();
+        jb_realizarExamen.setEnabled(false);
         tf_usuarioL.setText("Admin");
         pf_contraL.setText("admin1234");
 
@@ -67,6 +73,9 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jb_registrarR = new javax.swing.JButton();
         jb_regresarR = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        tf_e = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
         jd_login = new javax.swing.JDialog();
         tf_usuarioL = new javax.swing.JTextField();
         pf_contraL = new javax.swing.JPasswordField();
@@ -74,8 +83,16 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jb_loginL = new javax.swing.JButton();
         jb_regresarL = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
         jd_estudiante = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jl_hechos = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jl_noHechos = new javax.swing.JList<>();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jb_realizarExamen = new javax.swing.JButton();
         jd_admin = new javax.swing.JDialog();
         tb_admin = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -107,24 +124,41 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         tf_idExamen = new javax.swing.JTextField();
         jb_crearExamen = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        cb_clases = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jl_preguntasM = new javax.swing.JList<>();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jl_examen = new javax.swing.JList<>();
+        jd_examen = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jl_preguntas = new javax.swing.JList<>();
+        cb_elegir = new javax.swing.JComboBox<>();
+        jb_siguiente = new javax.swing.JButton();
+        jb_finalizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jb_login = new javax.swing.JButton();
         jb_registrar = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
 
         jd_registrar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jd_registrar.getContentPane().add(tf_nameR, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 120, -1));
-        jd_registrar.getContentPane().add(tf_loginR, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 120, -1));
-        jd_registrar.getContentPane().add(pf_passR, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 120, -1));
+        jd_registrar.getContentPane().add(tf_nameR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 120, 30));
+        jd_registrar.getContentPane().add(tf_loginR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 120, 30));
+        jd_registrar.getContentPane().add(pf_passR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 130, 40));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Nombre completo");
-        jd_registrar.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+        jd_registrar.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Login");
-        jd_registrar.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
+        jd_registrar.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Contraseña");
-        jd_registrar.getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, -1, -1));
+        jd_registrar.getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
 
         jb_registrarR.setText("Registrar");
         jb_registrarR.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,7 +166,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_registrarRMouseClicked(evt);
             }
         });
-        jd_registrar.getContentPane().add(jb_registrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, -1, -1));
+        jd_registrar.getContentPane().add(jb_registrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
 
         jb_regresarR.setText("Regresar");
         jb_regresarR.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,15 +176,25 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jd_registrar.getContentPane().add(jb_regresarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setText("Id");
+        jd_registrar.getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 30, 20));
+
+        tf_e.setEditable(false);
+        jd_registrar.getContentPane().add(tf_e, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 120, 30));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1920x1080-lemon-yellow-solid-color-background.jpg"))); // NOI18N
+        jd_registrar.getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 470));
+
         jd_login.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jd_login.getContentPane().add(tf_usuarioL, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 140, 30));
-        jd_login.getContentPane().add(pf_contraL, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 140, 30));
+        jd_login.getContentPane().add(tf_usuarioL, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 140, 30));
+        jd_login.getContentPane().add(pf_contraL, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 140, 30));
 
         jLabel4.setText("Nombre de Usuario");
-        jd_login.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, -1, -1));
+        jd_login.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
 
         jLabel5.setText("Contraseña");
-        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
+        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
 
         jb_loginL.setText("Ingresar");
         jb_loginL.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -158,7 +202,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_loginLMouseClicked(evt);
             }
         });
-        jd_login.getContentPane().add(jb_loginL, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, -1));
+        jd_login.getContentPane().add(jb_loginL, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, -1, -1));
 
         jb_regresarL.setText("Regresar");
         jb_regresarL.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,10 +212,42 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         });
         jd_login.getContentPane().add(jb_regresarL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1920x1080-fresh-air-solid-color-background.jpg"))); // NOI18N
+        jd_login.getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 470));
+
         jd_estudiante.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setText("holap");
-        jd_estudiante.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 264, -1, -1));
+        jl_hechos.setModel(new DefaultListModel());
+        jScrollPane1.setViewportView(jl_hechos);
+
+        jd_estudiante.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 270, 180));
+
+        jl_noHechos.setModel(new DefaultListModel());
+        jl_noHechos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_noHechosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jl_noHechos);
+
+        jd_estudiante.getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 310, 180));
+
+        jLabel18.setText("Examenes hechos");
+        jd_estudiante.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
+
+        jLabel19.setText("Examenes por realizar");
+        jd_estudiante.getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, -1, -1));
+
+        jLabel6.setText("Seleccione uno");
+        jd_estudiante.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+
+        jb_realizarExamen.setText("Realizar Examen");
+        jb_realizarExamen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_realizarExamenMouseClicked(evt);
+            }
+        });
+        jd_estudiante.getContentPane().add(jb_realizarExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, -1, -1));
 
         jd_admin.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -226,7 +302,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         jl_cantPreguntas.setText("#");
-        jPanel3.add(jl_cantPreguntas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 20, -1));
+        jPanel3.add(jl_cantPreguntas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 170, 40));
 
         jLabel13.setText("Id de Pregunta");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, -1, -1));
@@ -290,9 +366,63 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
         tb_admin.addTab("Crear Examen", jPanel4);
 
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setText("Elija una clase");
+        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, -1));
+
+        cb_clases.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_clasesItemStateChanged(evt);
+            }
+        });
+        jPanel5.add(cb_clases, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 240, 30));
+
+        jl_preguntasM.setModel(new DefaultListModel());
+        jScrollPane4.setViewportView(jl_preguntasM);
+
+        jPanel5.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 170, 150));
+
+        jLabel21.setText("Preguntas Creadas");
+        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
+
+        jl_examen.setModel(new DefaultListModel());
+        jScrollPane5.setViewportView(jl_examen);
+
+        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 240, 140));
+
+        tb_admin.addTab("Mostrar todo", jPanel5);
+
         jd_admin.getContentPane().add(tb_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
+        jd_examen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jl_preguntas.setModel(new DefaultListModel());
+        jScrollPane3.setViewportView(jl_preguntas);
+
+        jd_examen.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 450, 150));
+
+        cb_elegir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verdadero", "Falso" }));
+        jd_examen.getContentPane().add(cb_elegir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 120, 30));
+
+        jb_siguiente.setText("Siguiente pregunta");
+        jb_siguiente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_siguienteMouseClicked(evt);
+            }
+        });
+        jd_examen.getContentPane().add(jb_siguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 140, 30));
+
+        jb_finalizar.setText("Finalizar Examen");
+        jb_finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_finalizarMouseClicked(evt);
+            }
+        });
+        jd_examen.getContentPane().add(jb_finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, 140, 40));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -302,7 +432,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_loginMouseClicked(evt);
             }
         });
-        jPanel1.add(jb_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
+        jPanel1.add(jb_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 120, 40));
 
         jb_registrar.setText("Registrate");
         jb_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -310,19 +440,20 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_registrarMouseClicked(evt);
             }
         });
-        jPanel1.add(jb_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, -1, -1));
+        jPanel1.add(jb_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 130, 40));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/a.jpg"))); // NOI18N
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -330,6 +461,22 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
     private void jb_registrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_registrarMouseClicked
         // TODO add your handling code here:
+        Jedis jedis = new Jedis("localhost", 6379);
+
+        Set<String> names = jedis.keys("*");
+        java.util.Iterator<String> it = names.iterator();
+        String s = "";
+
+        int cont = 1000;
+        while (it.hasNext()) {
+            s = it.next();
+
+            if (Integer.parseInt(s) >= 101 && Integer.parseInt(s) <= 1000) {
+                cont--;
+            }
+
+        }
+        tf_e.setText(cont + "");
         jd_registrar.pack();
         jd_registrar.setLocationRelativeTo(null);
         jd_registrar.setVisible(true);
@@ -379,9 +526,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 //subirBase(idE, cadena);
 
                 HashMap<String, String> examen = new HashMap<>();
-                examen.put("Nombre ", tf_nameR.getText());
+                examen.put("Nombre", tf_nameR.getText());
                 examen.put("login", tf_loginR.getText());
-                examen.put("Contrasena", pf_passR.getText());
+                //examen.put("Contrasena", pf_passR.getText());
+                examen.put("Contrasena", doHashing(pf_passR.getText()));
 
                 jedis.hmset(tide, examen);
 
@@ -390,6 +538,21 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 tf_loginR.setText("");
                 pf_passR.setText("");
             }
+
+            Set<String> name = jedis.keys("*");
+            java.util.Iterator<String> it2 = name.iterator();
+            String se = "";
+
+            int cont = 1000;
+            while (it2.hasNext()) {
+                se = it2.next();
+
+                if (Integer.parseInt(se) >= 101 && Integer.parseInt(se) <= 1000) {
+                    cont--;
+                }
+
+            }
+            tf_e.setText(cont + "");
 
         }
     }//GEN-LAST:event_jb_registrarRMouseClicked
@@ -411,6 +574,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         cb_clasesC.setModel(new DefaultComboBoxModel());
         cb_elegirClase.setModel(new DefaultComboBoxModel());
         cb_elegirClaseE.setModel(new DefaultComboBoxModel());
+        cb_clases.setModel(new DefaultComboBoxModel());
 
         boolean validar = false;
         boolean validarAdmin = false;
@@ -449,15 +613,20 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                     cont++;
                 }
 
-                if (Integer.parseInt(s) >= 101 && Integer.parseInt(s) <= 1000) {
+                if ((Integer.parseInt(s) >= 101 && Integer.parseInt(s) <= 1000) || Integer.parseInt(s) == 0) {
                     pos--;
 
                     //if (todo.get(igual).equals(tf_loginR.getText())) {
+                    HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+                    System.out.println(tf_usuarioL.getText());
+                    System.out.println(pf_contraL.getText());
                     if (tf_usuarioL.getText().equals("Admin") && pf_contraL.getText().equals("admin1234")) {
                         validarAdmin = true;
                     }
-                    if (todo.get(igual).equals(tf_usuarioL.getText()) && todo.get(igual2).equals(pf_contraL.getText())) {
+                    //if (val.get("login").equals(tf_usuarioL.getText()) && val.get("Contrasena").equals(pf_contraL.getText())) {
+                    if (val.get("login").equals(tf_usuarioL.getText()) && val.get("Contrasena").equals(doHashing(pf_contraL.getText()))) {
 
+                        IdEstudiante = Integer.parseInt(s);
                         validar = true;
 
                         break;
@@ -466,6 +635,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                     cb_clasesC.addItem("ID: " + s + " : " + jedis.hgetAll(s));
                     cb_elegirClase.addItem("ID: " + s + " : " + jedis.hgetAll(s));
                     cb_elegirClaseE.addItem("ID: " + s + " : " + jedis.hgetAll(s));
+                    cb_clases.addItem("ID: " + s + " : " + jedis.hgetAll(s));
                     contClases++;
                 }
 
@@ -484,6 +654,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             if (validar == true) {
 
                 jd_login.setVisible(false);
+                llenarLists();
                 jd_estudiante.pack();
                 jd_estudiante.setLocationRelativeTo(null);
                 jd_estudiante.setVisible(true);
@@ -538,8 +709,12 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 cb_clasesC.addItem("ID: " + cuenta + " : " + examen);
                 cb_elegirClase.addItem("ID: " + cuenta + " : " + examen);
                 cb_elegirClaseE.addItem("ID: " + cuenta + " : " + examen);
+                cb_clases.addItem("ID: " + cuenta + " : " + examen);
 
                 JOptionPane.showMessageDialog(null, "Clase creada con exito");
+
+                int count =cb_clasesC.getItemCount()+1;
+                tf_idClaseC.setText(count+"");
             }
             tf_nombreClaseC.setText("");
         }
@@ -573,7 +748,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             }
 
             HashMap<String, String> examen = new HashMap<>();
-            examen.put("titulo ", tf_titulo.getText());
+            examen.put("titulo", tf_titulo.getText());
             examen.put("descripcion", tf_descripcion.getText());
             examen.put("IdClase", ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "");
             examen.put("respuesta", respuesta + "");
@@ -586,6 +761,26 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             cb_respuesta.setSelectedIndex(0);
             contClases++;
             tf_idPregunta.setText(contClases + "");
+
+            Set<String> name = jedis.keys("*");
+            java.util.Iterator<String> it2 = name.iterator();
+            String s2 = "";
+            int cuenta2 = 0;
+            while (it2.hasNext()) {
+                s2 = it2.next();
+
+                HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s2);
+
+                //System.out.println("todo "+jedis.hgetAll(s));
+                if (Integer.parseInt(s2) >= 2001) {
+                    if (val.get("IdClase").charAt(0) == ((String) cb_elegirClase.getSelectedItem()).charAt(4)) {
+                        cuenta2++;
+                    }
+                }
+
+            }
+            jl_cantPreguntas.setText(cuenta2 + "");
+
         }
     }//GEN-LAST:event_jb_crearPreguntaMouseClicked
 
@@ -635,7 +830,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
             }
         }
-        cb_elegirClaseE.setSelectedIndex(0);
+        cb_elegirClaseE.addItem("hola");
+//        cb_clases.addItem("hola");
+        cb_elegirClaseE.setSelectedIndex(1);
+//        cb_clases.setSelectedIndex(1);
+        llenarCB();
         tf_idPregunta.setText(contClases + "");
         tf_idExamen.setText(contExamen + "");
     }//GEN-LAST:event_tb_adminMouseClicked
@@ -646,8 +845,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                if (tb_admin.getSelectedIndex() == 2) {
 
+                if (tb_admin.getSelectedIndex() == 2) {
+                    SpinnerNumberModel modelo = (SpinnerNumberModel) js_cantPreguntas.getModel();
+                    modelo.setValue(1);
+                    js_cantPreguntas.setModel(modelo);
                     Jedis jedis = new Jedis("localhost", 6379);
 
                     Set<String> names = jedis.keys("*");
@@ -668,6 +870,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                         } else if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
                             if (val.get("IdClase").charAt(0) == ((String) cb_elegirClaseE.getSelectedItem()).charAt(4)) {
                                 JOptionPane.showMessageDialog(null, "Esa clase ya tiene examen");
+                                jb_crearExamen.setEnabled(false);
                                 cont = -1;
                                 break;
 
@@ -696,12 +899,190 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         Jedis jedis = new Jedis("localhost", 6379);
 
         HashMap<String, String> examen = new HashMap<>();
-        examen.put("IdExamen", tf_idExamen.getText());
-        examen.put("IdClase", ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "");
+        //examen.put("IdExamen", tf_idExamen.getText());
+        examen.put("IdClase", ((String) cb_elegirClaseE.getSelectedItem()).charAt(4) + "");
         examen.put("cantPreguntas", (int) js_cantPreguntas.getValue() + "");
         jedis.hmset(tf_idExamen.getText() + "", examen);
+        jb_crearExamen.setEnabled(false);
         JOptionPane.showMessageDialog(null, "Examen creado con exito");
     }//GEN-LAST:event_jb_crearExamenMouseClicked
+
+    private void jl_noHechosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_noHechosMouseClicked
+        // TODO add your handling code here:
+        jb_realizarExamen.setEnabled(true);
+    }//GEN-LAST:event_jl_noHechosMouseClicked
+
+    private void jb_realizarExamenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_realizarExamenMouseClicked
+        // TODO add your handling code here:
+        jl_preguntas.setModel(new DefaultListModel<>());
+
+        jb_finalizar.setEnabled(true);
+        jb_siguiente.setEnabled(true);
+        int cont = 1;
+        int index = jl_noHechos.getSelectedIndex();
+        DefaultListModel<String> modelo = (DefaultListModel<String>) jl_noHechos.getModel();
+
+        preguntasH = new ArrayList();
+        respuestas = new ArrayList();
+        respondidas = new ArrayList();
+
+        String cadenaClase = modelo.getElementAt(index);
+        String IdExamen = cadenaClase.substring(11, 15);
+        IdeExamen = IdExamen;
+        String IdClase = cadenaClase.charAt(27) + "";
+
+        Jedis jedis = new Jedis("localhost", 6379);
+
+        int cantP = Integer.parseInt(jedis.hget(IdExamen, "cantPreguntas"));
+        System.out.println("cantPreguntas " + cantP);
+        Set<String> names = jedis.keys("*");
+        java.util.Iterator<String> it = names.iterator();
+        String s = "";
+
+        while (it.hasNext() && cont <= cantP) {
+            s = it.next();
+
+            HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+            if (Integer.parseInt(s) >= 2001) {
+
+                if (val.get("IdClase").equals(IdClase)) {
+                    preguntasH.add(val.get("titulo") + " - " + val.get("descripcion"));
+                    System.out.println("WpreguntasH " + preguntasH.get(preguntasH.size() - 1));
+                    respuestas.add(val.get("respuesta"));
+                    cont++;
+                }
+            }
+
+        }
+
+        DefaultListModel<String> model = (DefaultListModel<String>) jl_preguntas.getModel();
+        model.addElement(preguntasH.get(0));
+        jl_preguntas.setModel(model);
+
+        if (preguntasH.size() > 1) {
+            jb_finalizar.setEnabled(false);
+        } else if (preguntasH.size() == 1) {
+            jb_siguiente.setEnabled(false);
+        }
+
+        jd_examen.pack();
+        jd_examen.setLocationRelativeTo(null);
+        jd_examen.setVisible(true);
+    }//GEN-LAST:event_jb_realizarExamenMouseClicked
+
+    private void jb_siguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_siguienteMouseClicked
+        // TODO add your handling code here:
+        String r = "";
+        System.out.println("preguntasH.size() " + preguntasH.size());
+        for (int i = 1; i < preguntasH.size(); i++) {
+            r = (String) cb_elegir.getSelectedItem();
+            if (r.equals("Verdadero")) {
+                respondidas.add("true");
+            } else {
+                respondidas.add("false");
+            }
+
+            DefaultListModel<String> model = new DefaultListModel<>();
+            model.addElement(preguntasH.get(i));
+            jl_preguntas.setModel(model);
+
+            if (i == preguntasH.size() - 1) {
+                jb_siguiente.setEnabled(false);
+                jb_finalizar.setEnabled(true);
+            }
+
+        }
+    }//GEN-LAST:event_jb_siguienteMouseClicked
+
+    private void jb_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_finalizarMouseClicked
+        // TODO add your handling code here:
+        String r = (String) cb_elegir.getSelectedItem();
+        System.out.println("r " + r);
+        if (r.equals("Verdadero")) {
+            respondidas.add("true");
+        } else {
+            respondidas.add("false");
+        }
+
+        int nota = 0;
+        for (int i = 0; i < respondidas.size(); i++) {
+            System.out.println("frespondidas.get(i) " + respondidas.get(i));
+            System.out.println("frespuestas.get(i) " + respuestas.get(i));
+            if (respondidas.get(i).equals(respuestas.get(i))) {
+                nota += 5;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Su nota es de: " + nota);
+        examenesPorHacer--;
+        Jedis jedis = new Jedis("localhost", 6379);
+        int n = 2;
+        if (!jedis.hexists(IdEstudiante + "", "Resultado")) {
+            HashMap<String, String> examen = new HashMap<>();
+            examen.put("Resultado", IdeExamen + "-" + nota);
+            jedis.hmset(IdEstudiante + "", examen);
+        } else {
+
+            while (true) {
+                if (!jedis.hexists(IdEstudiante + "", "Resultado" + n)) {
+                    break;
+                }
+                n++;
+            }
+            HashMap<String, String> examen = new HashMap<>();
+            examen.put("Resultado" + n, IdeExamen + "-" + nota);
+            jedis.hmset(IdEstudiante + "", examen);
+
+        }
+
+        llenarLists();
+        if (examenesPorHacer == 0) {
+            jb_realizarExamen.setEnabled(false);
+        }
+        jd_examen.setVisible(false);
+    }//GEN-LAST:event_jb_finalizarMouseClicked
+
+    private void cb_clasesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_clasesItemStateChanged
+        // TODO add your handling code here:
+        jl_examen.setModel(new DefaultListModel<>());
+
+        jl_preguntasM.setModel(new DefaultListModel<>());
+        Jedis jedis = new Jedis("localhost", 6379);
+
+        Set<String> names = jedis.keys("*");
+        java.util.Iterator<String> it = names.iterator();
+        String s = "";
+
+        DefaultListModel<String> modelo = (DefaultListModel<String>) jl_preguntasM.getModel();
+        while (it.hasNext()) {
+            s = it.next();
+
+            if (Integer.parseInt(s) >= 2001) {
+                HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+                //String IdExamen = cadenaClase.substring(11, 15);
+                if ((((String) cb_clases.getSelectedItem()).charAt(4) + "").equals(val.get("IdClase"))) {
+                    String listaP = "Id Pregunta: " + s + " - Titulo: " + val.get("titulo") + " - Descripcion: " + val.get("descripcion") + " - IdClase: " + val.get("IdClase") + " - respuesta: " + val.get("respuesta");
+                    modelo.addElement(listaP);
+                }
+
+            }
+
+            DefaultListModel<String> model = (DefaultListModel<String>) jl_examen.getModel();
+            if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
+                HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+//                System.out.println(examenHecho.contains(val.get("IdClase")));
+                if ((((String) cb_clases.getSelectedItem()).charAt(4) + "").equals(val.get("IdClase"))) {
+
+                    String listaE = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), "NombreClase");
+                    model.addElement(listaE);
+                }
+            }
+
+            jl_examen.setModel(model);
+
+            jl_preguntasM.setModel(modelo);
+
+        }
+    }//GEN-LAST:event_cb_clasesItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -741,6 +1122,49 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     public void subirBase(int idE, String cadena) {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.set("" + idE, cadena);
+    }
+
+    public void llenarCB() {
+        cb_elegirClaseE.setModel(new DefaultComboBoxModel());
+        cb_clases.setModel(new DefaultComboBoxModel());
+        Jedis jedis = new Jedis("localhost", 6379);
+
+        Set<String> names = jedis.keys("*");
+        java.util.Iterator<String> it = names.iterator();
+        String s = "";
+
+        while (it.hasNext()) {
+            s = it.next();
+            if (Integer.parseInt(s) >= 1 && Integer.parseInt(s) <= 100) {
+
+                cb_elegirClaseE.addItem("ID: " + s + " : " + jedis.hgetAll(s));
+                cb_clases.addItem("ID: " + s + " : " + jedis.hgetAll(s));
+            }
+
+        }
+    }
+
+    public static String doHashing(String password) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("md5");
+
+            messageDigest.update(password.getBytes());
+
+            byte[] resultByteArray = messageDigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 
     public void tokenizarAlumnos() {
@@ -787,8 +1211,75 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         }
     }
 
+    public void llenarLists() {
+        jl_hechos.setModel(new DefaultListModel<>());
+        jl_noHechos.setModel(new DefaultListModel<>());
+        Jedis jedis = new Jedis("localhost", 6379);
+        ArrayList<String> examenHecho = new ArrayList();
+        Set<String> names = jedis.keys("*");
+        java.util.Iterator<String> it = names.iterator();
+        String s = "";
+        String listasExamenes = "";
+        String listasExamenesN = "";
+
+        DefaultListModel<String> model = (DefaultListModel<String>) jl_hechos.getModel();
+        while (it.hasNext()) {
+            s = it.next();
+
+            if (Integer.parseInt(s) == IdEstudiante) {
+                HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+                if (jedis.hexists(s, "Resultado")) {
+                    for (int i = 0; i < val.size(); i++) {
+
+                        if (((String) val.keySet().toArray()[i]).contains("Resultado")) {
+                            String grupo = (String) val.values().toArray()[i];
+                            String[] separados = grupo.split("-");
+                            listasExamenes = "IdExamen: " + separados[0] + " - Nota: " + separados[1];
+                            model.addElement(listasExamenes);
+                            examenHecho.add(separados[0]);
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        Set<String> names2 = jedis.keys("*");
+        java.util.Iterator<String> it2 = names2.iterator();
+        DefaultListModel<String> modelo = (DefaultListModel<String>) jl_noHechos.getModel();
+        int cont = 0;
+        while (it2.hasNext()) {
+            s = it2.next();
+            HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
+            if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
+//                System.out.println(examenHecho.contains(val.get("IdClase")));
+                boolean validar = true;
+                for (int i = 0; i < examenHecho.size(); i++) {
+                    if (examenHecho.get(i).equals(s)) {
+                        validar = false;
+                    }
+                }
+
+                if (validar) {
+                    listasExamenesN = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), "NombreClase");
+                    modelo.addElement(listasExamenesN);
+                    examenesPorHacer++;
+                }
+
+            }
+
+        }
+
+        jl_hechos.setModel(model);
+
+        jl_noHechos.setModel(modelo);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_clases;
     private javax.swing.JComboBox<String> cb_clasesC;
+    private javax.swing.JComboBox<String> cb_elegir;
     private javax.swing.JComboBox<String> cb_elegirClase;
     private javax.swing.JComboBox<String> cb_elegirClaseE;
     private javax.swing.JComboBox<String> cb_respuesta;
@@ -801,7 +1292,15 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -813,26 +1312,41 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton jb_crearClase;
     private javax.swing.JButton jb_crearExamen;
     private javax.swing.JButton jb_crearPregunta;
+    private javax.swing.JButton jb_finalizar;
     private javax.swing.JButton jb_login;
     private javax.swing.JButton jb_loginL;
+    private javax.swing.JButton jb_realizarExamen;
     private javax.swing.JButton jb_registrar;
     private javax.swing.JButton jb_registrarR;
     private javax.swing.JButton jb_regresarL;
     private javax.swing.JButton jb_regresarR;
+    private javax.swing.JButton jb_siguiente;
     private javax.swing.JDialog jd_admin;
     private javax.swing.JDialog jd_estudiante;
+    private javax.swing.JDialog jd_examen;
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_registrar;
     private javax.swing.JLabel jl_cantPreguntas;
+    private javax.swing.JList<String> jl_examen;
+    private javax.swing.JList<String> jl_hechos;
+    private javax.swing.JList<String> jl_noHechos;
+    private javax.swing.JList<String> jl_preguntas;
+    private javax.swing.JList<String> jl_preguntasM;
     private javax.swing.JSpinner js_cantPreguntas;
     private javax.swing.JPasswordField pf_contraL;
     private javax.swing.JPasswordField pf_passR;
     private javax.swing.JTabbedPane tb_admin;
     private javax.swing.JTextField tf_descripcion;
+    private javax.swing.JTextField tf_e;
     private javax.swing.JTextField tf_idClaseC;
     private javax.swing.JTextField tf_idExamen;
     private javax.swing.JTextField tf_idPregunta;
@@ -846,5 +1360,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     ArrayList<Clase> clases = new ArrayList();
     ArrayList<Examen> examenes = new ArrayList();
     ArrayList<Preguntas> preguntas = new ArrayList();
-
+    int IdEstudiante;
+    int examenesPorHacer = 0;
+    String IdeExamen;
+    ArrayList<String> preguntasH = new ArrayList();
+    ArrayList<String> respuestas = new ArrayList();
+    ArrayList<String> respondidas = new ArrayList();
 }
