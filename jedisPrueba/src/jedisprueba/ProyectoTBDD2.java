@@ -133,6 +133,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jl_examen = new javax.swing.JList<>();
+        jLabel33 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jd_examen = new javax.swing.JDialog();
@@ -146,13 +147,14 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jb_login = new javax.swing.JButton();
         jb_registrar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
 
         jd_registrar.setUndecorated(true);
         jd_registrar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jd_registrar.getContentPane().add(tf_nameR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 120, 30));
-        jd_registrar.getContentPane().add(tf_loginR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 120, 30));
-        jd_registrar.getContentPane().add(pf_passR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 130, 40));
+        jd_registrar.getContentPane().add(tf_nameR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 210, 40));
+        jd_registrar.getContentPane().add(tf_loginR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 210, 40));
+        jd_registrar.getContentPane().add(pf_passR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 210, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Nombre completo");
@@ -173,7 +175,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_registrarRMouseClicked(evt);
             }
         });
-        jd_registrar.getContentPane().add(jb_registrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 160, -1));
+        jd_registrar.getContentPane().add(jb_registrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 340, 160, -1));
 
         jb_regresarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/return (6).png"))); // NOI18N
         jb_regresarR.setText("Regresar");
@@ -182,7 +184,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_regresarRMouseClicked(evt);
             }
         });
-        jd_registrar.getContentPane().add(jb_regresarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jd_registrar.getContentPane().add(jb_regresarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("Id");
@@ -298,7 +300,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jPanel2.add(tf_nombreClaseC, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 110, 30));
 
         cb_clasesC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
-        jPanel2.add(cb_clasesC, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 180, 30));
+        jPanel2.add(cb_clasesC, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 250, 40));
 
         jLabel10.setText("Clases Creadas");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
@@ -327,7 +329,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 cb_elegirClaseItemStateChanged(evt);
             }
         });
-        jPanel3.add(cb_elegirClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 180, 40));
+        jPanel3.add(cb_elegirClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 230, 50));
 
         jLabel11.setText("Cantidad de preguntas que tiene esta clase");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
@@ -342,18 +344,18 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jPanel3.add(tf_idPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 110, 30));
 
         jLabel14.setText("Titulo");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
-        jPanel3.add(tf_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 170, 40));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, -1, -1));
+        jPanel3.add(tf_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 210, 40));
 
         jLabel15.setText("Descripcion");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
-        jPanel3.add(tf_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 170, 40));
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, -1, -1));
+        jPanel3.add(tf_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 210, 40));
 
         jLabel16.setText("Respuesta");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, -1, -1));
 
         cb_respuesta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verdadero", "Falso" }));
-        jPanel3.add(cb_respuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 120, 30));
+        jPanel3.add(cb_respuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 170, 30));
 
         jb_crearPregunta.setText("Crear Pregunta");
         jb_crearPregunta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -361,7 +363,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_crearPreguntaMouseClicked(evt);
             }
         });
-        jPanel3.add(jb_crearPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 130, 30));
+        jPanel3.add(jb_crearPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 130, 30));
 
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/1920x1080-fresh-air-solid-color-background.jpg"))); // NOI18N
         jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 380));
@@ -376,7 +378,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 cb_elegirClaseEItemStateChanged(evt);
             }
         });
-        jPanel4.add(cb_elegirClaseE, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 180, 40));
+        jPanel4.add(cb_elegirClaseE, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 230, 40));
 
         js_cantPreguntas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         jPanel4.add(js_cantPreguntas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 70, 30));
@@ -418,7 +420,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jl_preguntasM.setModel(new DefaultListModel());
         jScrollPane4.setViewportView(jl_preguntasM);
 
-        jPanel5.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 170, 150));
+        jPanel5.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 290, 140));
 
         jLabel21.setText("Preguntas Creadas");
         jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
@@ -426,7 +428,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jl_examen.setModel(new DefaultListModel());
         jScrollPane5.setViewportView(jl_examen);
 
-        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 240, 140));
+        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 350, 140));
+
+        jLabel33.setText("Examenes Creados");
+        jPanel5.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
 
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/2560x1600-neon-carrot-solid-color-background.jpg"))); // NOI18N
         jPanel5.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 380));
@@ -489,7 +494,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_loginMouseClicked(evt);
             }
         });
-        jPanel1.add(jb_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 120, 40));
+        jPanel1.add(jb_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 120, 40));
 
         jb_registrar.setText("Registrate");
         jb_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -497,7 +502,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 jb_registrarMouseClicked(evt);
             }
         });
-        jPanel1.add(jb_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 130, 40));
+        jPanel1.add(jb_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 120, 40));
 
         jButton1.setText("Salir");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -506,6 +511,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 90, 30));
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel32.setText("Bienvenido");
+        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jedisprueba/main/resources/images/1920x1080-fresh-air-solid-color-background.jpg"))); // NOI18N
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 400));
@@ -968,13 +977,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             Set<String> names = jedis.keys("*");
             java.util.Iterator<String> it = names.iterator();
             String s = "";
-
             while (it.hasNext() && cont <= cantP) {
                 s = it.next();
 
                 HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
                 if (Integer.parseInt(s) >= 2001) {
-
                     if (val.get("IdClase").equals(IdClase)) {
                         preguntasH.add(val.get("titulo") + " - " + val.get("descripcion"));
                         respuestas.add(val.get("respuesta"));
@@ -983,7 +990,6 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 }
 
             }
-
             DefaultListModel<String> model = (DefaultListModel<String>) jl_preguntas.getModel();
             model.addElement(preguntasH.get(0));
             jl_preguntas.setModel(model);
@@ -993,11 +999,11 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             } else if (preguntasH.size() == 1) {
                 jb_siguiente.setEnabled(false);
             }
-
+            conti = 0;
             jd_examen.pack();
             jd_examen.setLocationRelativeTo(null);
             jd_examen.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No ha seleccionado examenes");
         }
     }//GEN-LAST:event_jb_realizarExamenMouseClicked
@@ -1005,26 +1011,23 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private void jb_siguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_siguienteMouseClicked
         // TODO add your handling code here:
         String r = "";
-        for (int i = 1; i < preguntasH.size(); i++) {
-            r = (String) cb_elegir.getSelectedItem();
-            if (r.equals("Verdadero")) {
-                respondidas.add("true");
-            } else {
-                respondidas.add("false");
-            }
+        r = (String) cb_elegir.getSelectedItem();
+        if (r.equals("Verdadero")) {
+            respondidas.add("true");
+        } else {
+            respondidas.add("false");
+        }
 
-            DefaultListModel<String> model = new DefaultListModel<>();
-            model.addElement(preguntasH.get(i));
-            jl_preguntas.setModel(model);
-
-            if (i == preguntasH.size() - 1) {
-                jb_siguiente.setEnabled(false);
-                jb_finalizar.setEnabled(true);
-            }
-
+        conti++;
+        DefaultListModel<String> model = new DefaultListModel<>();
+        model.addElement(preguntasH.get(conti));
+        jl_preguntas.setModel(model);
+        if (conti == preguntasH.size() - 1) {
+            jb_siguiente.setEnabled(false);
+            jb_finalizar.setEnabled(true);
         }
     }//GEN-LAST:event_jb_siguienteMouseClicked
-
+    int conti = 0;
     private void jb_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_finalizarMouseClicked
         // TODO add your handling code here:
         String r = (String) cb_elegir.getSelectedItem();
@@ -1299,6 +1302,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
