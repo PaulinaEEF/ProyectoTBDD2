@@ -41,8 +41,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     public ProyectoTBDD2() {
         initComponents();
         jb_realizarExamen.setEnabled(false);
-        tf_usuarioL.setText("Admin");
-        pf_contraL.setText("admin1234");
+//        tf_usuarioL.setText("Admin");
+//        pf_contraL.setText("admin1234");
 //        tf_usuarioL.setText("Pau");
 //        pf_contraL.setText("abc");
 
@@ -1277,7 +1277,6 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
                             if (idExamen.equals(preguntasGrades.get(i).get(0))) {
                                 modelo.addElement(preguntasGrades.get(i) + "");
-                                System.out.println("cuantas");
                                 break;
                             }
 
