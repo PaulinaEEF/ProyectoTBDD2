@@ -41,10 +41,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     public ProyectoTBDD2() {
         initComponents();
         jb_realizarExamen.setEnabled(false);
-        //tf_usuarioL.setText("Admin");
-        //pf_contraL.setText("admin1234");
-        tf_usuarioL.setText("Pau");
-        pf_contraL.setText("abc");
+        tf_usuarioL.setText("Admin");
+        pf_contraL.setText("admin1234");
+//        tf_usuarioL.setText("Pau");
+//        pf_contraL.setText("abc");
 
         Jedis jedis = new Jedis("localhost", 6379);
         HashMap<String, String> examen = new HashMap<>();
@@ -721,8 +721,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
                     }
                 } else if (Integer.parseInt(s) >= 1 && Integer.parseInt(s) <= 100) {
-                    cb_clasesC.addItem("ID: " + s + " : " + jedis.hgetAll(s));
-                    cb_elegirClase.addItem("ID: " + s + " : " + jedis.hgetAll(s));
+                    cb_clasesC.addItem("ID: " + s + " : " + jedis.hmget(s, "NombreClase"));
+                    cb_elegirClase.addItem("ID: " + s + " : " + jedis.hmget(s, "NombreClase"));
                     cb_elegirClaseE.addItem("ID: " + s + " : " + jedis.hgetAll(s));
                     cb_clases.addItem("ID: " + s + " : " + jedis.hgetAll(s));
                     contClases++;
@@ -828,7 +828,28 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             HashMap<String, String> examen = new HashMap<>();
             examen.put("titulo", tf_titulo.getText());
             examen.put("descripcion", tf_descripcion.getText());
-            examen.put("IdClase", ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "");
+
+            long n = jedis.hlen(((String) cb_elegirClase.getSelectedItem()).charAt(4) + "");
+
+            //if (jedis.hget(cuenta+"", "IdClase").charAt(1)==' ') {
+            //if (!jedis.hexists( ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "", "IdClase" )) {
+            if (n == 1) {
+                examen.put("IdClase", ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "" + 1);
+            } else {
+
+//                while (true) {
+//                    //if (!jedis.hexists(IdEstudiante + "", "Resultado" + n)) {
+//                    if (!jedis.hexists(((String) cb_elegirClase.getSelectedItem()).charAt(4) + n+"", "IdClase")) {
+//                        break;
+//                    }
+//                    n++;
+//                }
+                n -= 1;
+                examen.put("IdClase", ((String) cb_elegirClase.getSelectedItem()).charAt(4) + "" + n);
+                //lista.put("Resultado" + n, IdeExamen + "-" + nota);
+
+            }
+
             examen.put("respuesta", respuesta + "");
             jedis.hmset(cuenta + "", examen);
             JOptionPane.showMessageDialog(null, "Pregunta creada con exito");
@@ -989,12 +1010,31 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         jedis.hmset(tf_idExamen.getText() + "", examen);
         jb_crearExamen.setEnabled(false);
         JOptionPane.showMessageDialog(null, "Examen creado con exito");
-        
+
         ///////////////////////
-        HashMap<String, String> lista = new HashMap<>();
-        //jedis.hmset(((String) cb_elegirClaseE.getSelectedItem()).charAt(4)+"", ("tf_idExamen.getText() + "");
-        
-        
+        //HashMap<String, String> lista = new HashMap<>();
+        int n = 2;
+        if (!jedis.hexists(((String) cb_elegirClaseE.getSelectedItem()).charAt(4) + "", "examen1")) {
+            HashMap<String, String> lista = new HashMap<>();
+            lista.put("examen" + 1, tf_idExamen.getText() + "");
+            jedis.hmset(((String) cb_elegirClaseE.getSelectedItem()).charAt(4) + "", lista);
+        } else {
+
+            while (true) {
+                //if (!jedis.hexists(IdEstudiante + "", "Resultado" + n)) {
+                if (!jedis.hexists(((String) cb_elegirClaseE.getSelectedItem()).charAt(4) + "", "examen" + n)) {
+                    break;
+                }
+                n++;
+            }
+            HashMap<String, String> lista = new HashMap<>();
+            //lista.put("Resultado" + n, IdeExamen + "-" + nota);
+            lista.put("examen" + n, tf_idExamen.getText() + "");
+            jedis.hmset(((String) cb_elegirClaseE.getSelectedItem()).charAt(4) + "", lista);
+
+        }
+
+
     }//GEN-LAST:event_jb_crearExamenMouseClicked
 
     private void jl_noHechosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_noHechosMouseClicked
@@ -1004,6 +1044,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
     private void jb_realizarExamenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_realizarExamenMouseClicked
         // TODO add your handling code here:
+
         if (jl_noHechos.getSelectedIndex() != -1) {
 
             jl_preguntas.setModel(new DefaultListModel<>());
@@ -1017,11 +1058,13 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             preguntasH = new ArrayList();
             respuestas = new ArrayList();
             respondidas = new ArrayList();
+            grades = new ArrayList();
 
             String cadenaClase = modelo.getElementAt(index);
             String IdExamen = cadenaClase.substring(11, 15);
             IdeExamen = IdExamen;
-            String IdClase = cadenaClase.charAt(27) + "";
+            grades.add(IdeExamen);
+            char IdClase = cadenaClase.charAt(27);
 
             Jedis jedis = new Jedis("localhost", 6379);
 
@@ -1034,9 +1077,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 
                 HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
                 if (Integer.parseInt(s) >= 2001) {
-                    if (val.get("IdClase").equals(IdClase)) {
+                    if (val.get("IdClase").charAt(0) == IdClase) {
                         preguntasH.add(val.get("titulo") + " - " + val.get("descripcion"));
                         respuestas.add(val.get("respuesta"));
+                        grades.add("Titulo: " + val.get("titulo") + "   Descripcion: " + val.get("descripcion") + "   Respuesta: " + val.get("respuesta"));
                         cont++;
                     }
                 }
@@ -1046,6 +1090,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             model.addElement(preguntasH.get(0));
             jl_preguntas.setModel(model);
 
+            //preguntasGrades
             if (preguntasH.size() > 1) {
                 jb_finalizar.setEnabled(false);
             } else if (preguntasH.size() == 1) {
@@ -1059,7 +1104,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No ha seleccionado examenes");
         }
     }//GEN-LAST:event_jb_realizarExamenMouseClicked
-
+    ArrayList<String> grades = new ArrayList();
     private void jb_siguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_siguienteMouseClicked
         // TODO add your handling code here:
         String r = "";
@@ -1073,6 +1118,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         conti++;
         DefaultListModel<String> model = new DefaultListModel<>();
         model.addElement(preguntasH.get(conti));
+
         jl_preguntas.setModel(model);
         if (conti == preguntasH.size() - 1) {
             jb_siguiente.setEnabled(false);
@@ -1116,7 +1162,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             jedis.hmset(IdEstudiante + "", examen);
 
         }
-
+        ArrayList<String> temp = grades;
+        preguntasGrades.add(temp);
         llenarLists();
         if (examenesPorHacer == 0) {
             jb_realizarExamen.setEnabled(false);
@@ -1138,10 +1185,10 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         DefaultListModel<String> modelo = (DefaultListModel<String>) jl_preguntasM.getModel();
         while (it.hasNext()) {
             s = it.next();
-
             if (Integer.parseInt(s) >= 2001) {
                 HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
-                if ((((String) cb_clases.getSelectedItem()).charAt(4) + "").equals(val.get("IdClase"))) {
+
+                if ((((String) cb_clases.getSelectedItem()).charAt(4)) == (val.get("IdClase").charAt(0))) {
                     String listaP = "Id Pregunta: " + s + " - Titulo: " + val.get("titulo") + " - Descripcion: " + val.get("descripcion") + " - IdClase: " + val.get("IdClase") + " - respuesta: " + val.get("respuesta");
                     modelo.addElement(listaP);
                 }
@@ -1154,7 +1201,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 if ((((String) cb_clases.getSelectedItem()).charAt(4) + "").equals(val.get("IdClase"))) {
 
                     //String listaE = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), "NombreClase");
-                    String listaE = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), " - Fecha de aplicacion"+ val.get("fecha"));
+                    String listaE = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), "NombreClase") + " - Fecha de aplicacion: " + val.get("fecha");
                     model.addElement(listaE);
                 }
             }
@@ -1177,7 +1224,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_salirEMouseClicked
 
     private void jb_gradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_gradesMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
         jd_grades.pack();
         jd_grades.setLocationRelativeTo(null);
         jd_grades.setVisible(true);
@@ -1197,7 +1244,6 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
         DefaultListModel<String> modelo = (DefaultListModel<String>) jl_grade.getModel();
         while (it.hasNext()) {
             s = it.next();
-            
             if (Integer.parseInt(s) >= 1001 && Integer.parseInt(s) <= 2000) {
                 HashMap<String, String> val = (HashMap<String, String>) jedis.hgetAll(s);
                 //if ((((String) cb_grade.getSelectedItem()).charAt(4) + "").equals(val.get("IdClase"))) {
@@ -1210,7 +1256,34 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                     n = it2.next();
                     if (Integer.parseInt(n) >= 2001) {
                         HashMap<String, String> value = (HashMap<String, String>) jedis.hgetAll(n);
-                        if ((val.get("IdClase").charAt(0)) == (value.get("IdClase").charAt(0))) {
+                        //if ((val.get("IdClase").charAt(0)) == (value.get("IdClase").charAt(0)) && (val.get("IdClase").charAt(1)) == (value.get("IdClase").charAt(1))) {
+                        boolean flag = false;
+                        int cont = 1;
+//                        while(jedis.hlen(value.get("IdClase").charAt(0)+"") >=cont){
+//                            if(idExamen.equals(jedis.hmget((value.get("IdClase").charAt(0))+"", "examen"+cont).get(0))){
+//                            //System.out.println(jedis.hmget((value.get("IdClase").charAt(0))+"", "examen"+cont).get(0));
+//
+//                                flag= true;
+//                                break;
+//                            }else if(idExamen.equals(jedis.hmget((value.get("IdClase").charAt(0))+"", "examen"+cont).get(0))){
+//                                flag= true;
+//                                break;
+//                            }
+//                            cont++;
+//                        }
+
+                        //if ((val.get("IdClase").charAt(0)) == (value.get("IdClase").charAt(0)) && flag) {
+                        for (int i = 0; i < preguntasGrades.size(); i++) {
+
+                            if (idExamen.equals(preguntasGrades.get(i).get(0))) {
+                                modelo.addElement(preguntasGrades.get(i) + "");
+                                System.out.println("cuantas");
+                                break;
+                            }
+
+                        }
+
+                        if ((val.get("IdClase").charAt(0)) == (value.get("IdClase").charAt(0)) && flag) {
                             listaP = "Titulo: " + value.get("titulo") + "   Descripcion: " + value.get("descripcion") + "   Respuesta: " + value.get("respuesta") + "\n";
                             modelo.addElement(listaP);
                         }
@@ -1250,7 +1323,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
 //                }
 //            }
             //jl_examen.setModel(model);
-            jl_preguntasM.setModel(modelo);
+            jl_grade.setModel(modelo);
 
         }
     }//GEN-LAST:event_cb_gradeItemStateChanged
@@ -1313,8 +1386,8 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
             s = it.next();
             if (Integer.parseInt(s) >= 1 && Integer.parseInt(s) <= 100) {
 
-                cb_elegirClaseE.addItem("ID: " + s + " : " + jedis.hgetAll(s));
-                cb_clases.addItem("ID: " + s + " : " + jedis.hgetAll(s));
+                cb_elegirClaseE.addItem("ID: " + s + " : " + jedis.hmget(s, "NombreClase"));
+                cb_clases.addItem("ID: " + s + " : " + jedis.hmget(s, "NombreClase"));
             }
 
         }
@@ -1394,7 +1467,7 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
                 }
 
                 if (validar) {
-                    listasExamenesN = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), "NombreClase")+ " - Fecha: " + val.get("fecha");
+                    listasExamenesN = "Id Examen: " + s + " - IdClase: " + val.get("IdClase") + " - Nombre de Clase: " + jedis.hget(val.get("IdClase"), "NombreClase") + " - Fecha: " + val.get("fecha");
                     modelo.addElement(listasExamenesN);
                     examenesPorHacer++;
                 }
@@ -1511,4 +1584,5 @@ public class ProyectoTBDD2 extends javax.swing.JFrame {
     ArrayList<String> preguntasH = new ArrayList();
     ArrayList<String> respuestas = new ArrayList();
     ArrayList<String> respondidas = new ArrayList();
+    ArrayList<ArrayList> preguntasGrades = new ArrayList();
 }
